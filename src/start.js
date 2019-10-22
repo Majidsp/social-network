@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Welcome from './components/UI/Welcome/Welcome';
 
 ReactDOM.render(
     <HelloWorld />,
@@ -8,6 +9,8 @@ ReactDOM.render(
 
 function HelloWorld() {
     return (
-        <div>Hello, World!</div>
+        <div>
+            <Welcome />
+        </div>
     );
 }
