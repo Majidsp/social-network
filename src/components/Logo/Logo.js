@@ -1,10 +1,9 @@
 import React from 'react';
 
 
-const logo = (props) => (
+const logo = () => (
     <div>
-        <p>TEST HERE</p>
-        <img src="logo.png" alt="My main Logo!"/>
+        <p>HERE IS THE LOGO COMPONENT, I WILL REPLACE THIS P TAG WITH A LOGO LATER!</p>
     </div>
 );
 
