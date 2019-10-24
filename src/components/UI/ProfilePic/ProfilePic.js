@@ -1,7 +1,7 @@
 import React from 'react';
 
 const profilePic = ({ firstname, lastname, imgUrl}) => {
-    imgUrl = imgUrl || '../../../assets/images/logo.jpg';
+    imgUrl = imgUrl || '../../../assets/images/default_profile_pic.jpg';
     return (
         <div>
             <img src={imgUrl} />
