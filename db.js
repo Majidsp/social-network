@@ -9,6 +9,14 @@ const registerNewUser = (firstname, lastname, email, password) => {
     );
 };
 
+const logIn = emailaddress => {
+    return db.query(
+        `SELECT id, firstname, lastname, email, password FROM users WHERE email = $1;`,
+        [emailaddress]
+    );
+};
+
 module.exports = {
-    registerNewUser
+    registerNewUser,
+    logIn
 };

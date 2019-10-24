@@ -3,7 +3,7 @@ import axios from "../../../axios";
 import { Link } from 'react-router-dom';
 
 
-class Registration extends Component {
+class Login extends Component {
     constructor() {
         super();
         this.state = {};
@@ -16,11 +16,9 @@ class Registration extends Component {
     }
 
     submit() {
-        axios.post("/register", {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
+        axios.post("/login", {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
         })
             .then(() => location.replace("/"))
             .catch(err => {
@@ -33,16 +31,15 @@ class Registration extends Component {
         return (
             <div>
                 {this.state.error && ( <div className="error">Something went wrong. Please try again!</div> )}
-                Firstname: <input type="text" name="firstname" onChange={e => this.setValueToState(e)} placeholder="firstname..." autoComplete="off"></input>
-                Lastname: <input type="text" name="lastname" onChange={e => this.setValueToState(e)} placeholder="lastname..." autoComplete="off"></input>
-                Email: <input type="email" name="email" onChange={e => this.setValueToState(e)} placeholder="email address..." autoComplete="off"></input>
+                Email Address: <input type="email" name="email" onChange={e => this.setValueToState(e)} placeholder="email address..." autoComplete="off"></input>
                 Password: <input type="password" name="password" onChange={e => this.setValueToState(e)} placeholder="password" autoComplete="off"></input>
-                <button type="button" onClick={() => this.submit()}>Register</button>
-                <p>Already a member?<Link to="/login">Click here to Log in!</Link></p>
-
+                <button type="button" onClick={() => this.submit()}>Login</button>
+                <p>Not a member yet?<Link to="/">Click here to Register!</Link></p>
             </div>
         );
     }
+
 }
 
-export default Registration;
+
+export default Login;

@@ -51,13 +51,44 @@ app.post('/register', (req, res) => {
     const { firstname, lastname, email, password } = req.body;
 
     encoding.toHash(password)
-        .then( result => db.registerNewUser(firstname, lastname, email, result)
-        ).then( ({ rows }) => {
+        .then( result => db.registerNewUser(firstname, lastname, email, result))
+        .then( ({ rows }) => {
             req.session.firstname = rows[0].firstname;
             req.session.userId = rows[0].id;
             res.json();
         }
-        ).catch(error => {
+        )
+        .catch(error => {
+            console.error(error);
+            res.sendStatus(500);
+        });
+});
+
+// Route number 3
+app.post('/login', (req, res) => {
+    let id, firstname, lastname, email;
+
+    return db.logIn(req.body.email)
+        .then(({ rows }) => {
+            id = rows[0].id;
+            firstname = rows[0].firstname;
+            lastname = rows[0].lastname;
+            email = rows[0].email;
+            return Promise.all([
+                encoding.toCompare(req.body.password, rows[0].password)
+            ]);
+        }
+        ).then(result => {
+            if(result[0]) {
+                req.session.firstname = firstname;
+                req.session.userId = id;
+                res.json();
+            } else if(!result[0]) {
+                throw new Error;
+            }
+        }
+        )
+        .catch(error => {
             console.error(error);
             res.sendStatus(500);
         });
