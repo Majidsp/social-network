@@ -7,6 +7,9 @@ const encoding = require('./encoding');
 const csurf = require('csurf');
 
 
+app.use(express.static('./src'));
+
+
 //Middleware for compressing responses.
 app.use(compression());
 
@@ -53,7 +56,6 @@ app.post('/register', (req, res) => {
     encoding.toHash(password)
         .then( result => db.registerNewUser(firstname, lastname, email, result))
         .then( ({ rows }) => {
-            req.session.firstname = rows[0].firstname;
             req.session.userId = rows[0].id;
             res.json();
         }
@@ -66,21 +68,17 @@ app.post('/register', (req, res) => {
 
 // Route number 3
 app.post('/login', (req, res) => {
-    let id, firstname, lastname, email;
+    let id;
 
     return db.logIn(req.body.email)
         .then(({ rows }) => {
             id = rows[0].id;
-            firstname = rows[0].firstname;
-            lastname = rows[0].lastname;
-            email = rows[0].email;
             return Promise.all([
                 encoding.toCompare(req.body.password, rows[0].password)
             ]);
         }
         ).then(result => {
             if(result[0]) {
-                req.session.firstname = firstname;
                 req.session.userId = id;
                 res.json();
             } else if(!result[0]) {
@@ -88,6 +86,18 @@ app.post('/login', (req, res) => {
             }
         }
         )
+        .catch(error => {
+            console.error(error);
+            res.sendStatus(500);
+        });
+});
+
+//Route 4
+app.get('/user', (req, res) => {
+    return db.getUserInfo(req.session.userId)
+        .then(({rows}) => {
+            res.json(rows);
+        })
         .catch(error => {
             console.error(error);
             res.sendStatus(500);

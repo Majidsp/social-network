@@ -11,12 +11,20 @@ const registerNewUser = (firstname, lastname, email, password) => {
 
 const logIn = emailaddress => {
     return db.query(
-        `SELECT id, firstname, lastname, email, password FROM users WHERE email = $1;`,
+        `SELECT id, password FROM users WHERE email = $1;`,
         [emailaddress]
+    );
+};
+
+const getUserInfo = id => {
+    return db.query(
+        `SELECT id, firstname, lastname, email FROM users WHERE id = $1;`,
+        [id]
     );
 };
 
 module.exports = {
     registerNewUser,
-    logIn
+    logIn,
+    getUserInfo
 };

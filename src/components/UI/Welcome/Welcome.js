@@ -15,7 +15,6 @@ const welcome = () => (
                 <Route path="/login" component={Login} />
             </div>
         </HashRouter>
-        <img src="/logo.png" />
     </div>
 );
 
