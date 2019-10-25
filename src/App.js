@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ProfilePic from './components/UI/ProfilePic/ProfilePic';
 import Uploader from './containers/Uploader/Uploader';
 import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
@@ -55,11 +54,12 @@ class App extends Component {
                     firstname = {this.state.firstname}
                     lastname = {this.state.lastname}
                     imgUrl = {this.state.imgUrl}
+                    profileModal = {() => this.toggleModal()}
                 />
-                <ProfilePic
+                {/* <ProfilePic
                     imgUrl = {this.state.imgUrl}
                     modal = {() => this.toggleModal()}
-                />
+                /> */}
 
                 {this.state.showUploader &&
                     <Uploader
