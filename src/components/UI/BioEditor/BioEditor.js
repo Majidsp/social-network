@@ -20,7 +20,12 @@ class BioEditor extends Component {
         return (
             <div style={{backgroundColor: 'brown'}}>
                 <p onClick={() => this.toggleTextArea()}>{bio}</p>
-                {this.state.showTextField && (<textarea rows='4' cols='50'></textarea>)}
+                {this.state.showTextField && (
+                    <div>
+                        <textarea rows='4' cols='50' placeholder='Write your bio here...'></textarea>
+                        <button>Save</button>
+                    </div>
+                )}
             </div>
 
         );
