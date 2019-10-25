@@ -8,7 +8,7 @@ class Uploader extends Component {
     }
 
     componentDidMount() {
-        console.log('Uploader did mount!');
+        // console.log('Uploader did mount Here is Uploader Component!');
     }
 
     fileSelected(e) {

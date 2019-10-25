@@ -11,9 +11,10 @@ class App extends Component {
             showUploader: false
         };
 
-        this.methodInApp = this.methodInApp.bind(this);
-        this.setImageUrl = this.setImageUrl.bind(this);
+        //This was for testing purposes.
+        // this.methodInApp = this.methodInApp.bind(this);
 
+        this.setImageUrl = this.setImageUrl.bind(this);
     }
 
     componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
         });
     }
 
+    //This was for testing purposes.
     // methodInApp(firstname) {
     //     console.log('I AM A METHOD IN APP!');
     //     this.setState({firstname});
@@ -54,7 +56,8 @@ class App extends Component {
                 />
                 {this.state.showUploader &&
                     <Uploader
-                        sthToTest = {this.methodInApp}
+                        //This was for testing purposes.
+                        // sthToTest = {this.methodInApp}
                         setUrl = {this.setImageUrl}
                     />
                 }
