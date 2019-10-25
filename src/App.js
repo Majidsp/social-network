@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProfilePic from './components/UI/ProfilePic/ProfilePic';
 import Uploader from './containers/Uploader/Uploader';
+import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
 
 
@@ -41,19 +42,25 @@ class App extends Component {
     // }
 
     setImageUrl(imgUrl) {
-        this.setState({imgUrl});
+        this.setState({
+            imgUrl: imgUrl,
+            showUploader: !this.state.showUploader
+        });
     }
 
     render () {
         return (
-            <div>
-                <h1>Hello from App Component!</h1>
-                <ProfilePic
+            <div style={{backgroundColor: 'red'}}>
+                <Profile
                     firstname = {this.state.firstname}
                     lastname = {this.state.lastname}
                     imgUrl = {this.state.imgUrl}
+                />
+                <ProfilePic
+                    imgUrl = {this.state.imgUrl}
                     modal = {() => this.toggleModal()}
                 />
+
                 {this.state.showUploader &&
                     <Uploader
                         //This was for testing purposes.
