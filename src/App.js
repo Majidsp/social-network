@@ -8,7 +8,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            showUploader: false
+            showUploader: false,
         };
 
         //This was for testing purposes.
@@ -55,6 +55,7 @@ class App extends Component {
                     lastname = {this.state.lastname}
                     imgUrl = {this.state.imgUrl}
                     profileModal = {() => this.toggleModal()}
+                    profileBio = {this.state.bio}
                 />
                 {/* <ProfilePic
                     imgUrl = {this.state.imgUrl}
