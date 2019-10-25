@@ -14,6 +14,18 @@ class BioEditor extends Component {
         });
     }
 
+    setBioToState({ target }) {
+        this.setState({
+            [target.name]: target.value,
+        });
+    }
+
+    passBioCloseTextArea() {
+        this.props.passBioTwo(this.state.bio);
+        this.setState({
+            showTextField: !this.state.showTextField
+        });
+    }
 
     render () {
         let bio = this.props.bio ? `${this.props.bio}. Edit` : 'Add your bio now';
@@ -22,8 +34,8 @@ class BioEditor extends Component {
                 <p onClick={() => this.toggleTextArea()}>{bio}</p>
                 {this.state.showTextField && (
                     <div>
-                        <textarea rows='4' cols='50' placeholder='Write your bio here...'></textarea>
-                        <button>Save</button>
+                        <textarea onChange={e => this.setBioToState(e)} rows='4' cols='50' placeholder='Write your bio here...' name='bio'></textarea>
+                        <button onClick={() => this.passBioCloseTextArea()}>Save</button>
                     </div>
                 )}
             </div>

@@ -16,6 +16,7 @@ class App extends Component {
         // this.methodInApp = this.methodInApp.bind(this);
 
         this.setImageUrl = this.setImageUrl.bind(this);
+        this.setBio = this.setBio.bind(this);
     }
 
     componentDidMount() {
@@ -48,6 +49,14 @@ class App extends Component {
         });
     }
 
+    setBio(bio) {
+        this.setState({bio});
+    }
+
+    showState() {
+        console.log(this.state);
+    }
+
     render () {
         return (
             <div style={{backgroundColor: 'red'}}>
@@ -57,6 +66,7 @@ class App extends Component {
                     imgUrl = {this.state.imgUrl}
                     profileModal = {() => this.toggleModal()}
                     profileBio = {this.state.bio}
+                    passbio = {this.setBio}
                 />
                 {/* <ProfilePic
                     imgUrl = {this.state.imgUrl}
@@ -70,6 +80,7 @@ class App extends Component {
                         setUrl = {this.setImageUrl}
                     />
                 }
+                <button onClick={() => this.showState()}>Show State</button>
             </div>
         );
     }
