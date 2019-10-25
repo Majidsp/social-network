@@ -1,12 +1,12 @@
 import React from 'react';
 
-const profilePic = ({ firstname, lastname, imgUrl}) => {
+const profilePic = ({ firstname, lastname, imgUrl, modal}) => {
     imgUrl = imgUrl || '../../../assets/images/default_profile_pic.jpg';
     return (
         <div>
-            <img src={imgUrl} />
+            <img src={imgUrl} alt="Profile picture!" onClick={modal} />
             <h1>
-            Here is the Profile Pic Component! {firstname} {lastname}
+            Welcome {firstname} {lastname}
             </h1>
         </div>
     );

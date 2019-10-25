@@ -23,8 +23,17 @@ const getUserInfo = id => {
     );
 };
 
+const editProfilePic = (url, id) => {
+    return db.query(
+        `UPDATE users SET profile_pic_url = $1 WHERE id = $2 RETURNING profile_pic_url;`,
+        [url, id]
+    );
+};
+
+
 module.exports = {
     registerNewUser,
     logIn,
-    getUserInfo
+    getUserInfo,
+    editProfilePic
 };
