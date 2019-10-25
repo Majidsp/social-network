@@ -8,13 +8,19 @@ class BioEditor extends Component {
         };
     }
 
+    toggleTextArea() {
+        this.setState({
+            showTextField: !this.state.showTextField
+        });
+    }
+
 
     render () {
-        let bio = this.props.bio || 'Add your bio now';
+        let bio = this.props.bio ? `${this.props.bio}. Edit` : 'Add your bio now';
         return (
             <div style={{backgroundColor: 'brown'}}>
-                <a href="" onClick={this.props.modal}>{bio}</a>
-                {this.state.showTextField && (<textarea></textarea>)}
+                <p onClick={() => this.toggleTextArea()}>{bio}</p>
+                {this.state.showTextField && (<textarea rows='4' cols='50'></textarea>)}
             </div>
 
         );

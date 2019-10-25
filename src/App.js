@@ -9,6 +9,7 @@ class App extends Component {
         super();
         this.state = {
             showUploader: false,
+            // bio: 'HI'
         };
 
         //This was for testing purposes.
