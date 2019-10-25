@@ -12,7 +12,7 @@ const s3 = require("./s3");
 const { s3Url } = require("./config");
 
 
-
+//Configuring multer and uidsafe for uploaded files.
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, __dirname + '/uploads');
@@ -31,7 +31,7 @@ const uploader = multer({
     }
 });
 
-//Middleware for servinf files from the server.
+//Middleware for serving files from the server.
 app.use(express.static('./src'));
 
 //Middleware for compressing responses.
@@ -49,14 +49,14 @@ app.use(cookieSession({
 //Middleware for recognizing the incoming Request Object as a JSON Object.
 app.use(express.json());
 
-//Middleware to secure against csrf attacks.
+//Middleware to secure against CSURF attacks.
 app.use(csurf());
 app.use(function(req, res, next){
     res.cookie('mytoken', req.csrfToken());
     next();
 });
 
-
+//Configuring boundler.
 if (process.env.NODE_ENV != 'production') {
     app.use(
         '/bundle.js',
@@ -67,6 +67,7 @@ if (process.env.NODE_ENV != 'production') {
 } else {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+
 
 // Route number 1
 app.get('/welcome', function(req, res) {
@@ -82,8 +83,7 @@ app.post('/register', (req, res) => {
         .then( ({ rows }) => {
             req.session.userId = rows[0].id;
             res.json();
-        }
-        )
+        })
         .catch(error => {
             console.error(error);
             res.sendStatus(500);
@@ -97,11 +97,12 @@ app.post('/login', (req, res) => {
     return db.logIn(req.body.email)
         .then(({ rows }) => {
             id = rows[0].id;
+            //For later uses I used Promise All in case I wanna send more queries other purposes.
             return Promise.all([
                 encoding.toCompare(req.body.password, rows[0].password)
             ]);
-        }
-        ).then(result => {
+        })
+        .then(result => {
             if(result[0]) {
                 req.session.userId = id;
                 res.json();
@@ -131,7 +132,7 @@ app.get('/user', (req, res) => {
 //Route 5
 app.post('/upload', uploader.single('image'), s3.upload, function(req, res) {
     const url = `${s3Url}${req.file.filename}`;
-    
+
     return db.editProfilePic(url, req.session.userId)
         .then(({ rows }) => {
             res.json(rows);
