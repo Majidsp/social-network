@@ -59,7 +59,7 @@ class App extends Component {
 
     render () {
         return (
-            <div style={{backgroundColor: 'red'}}>
+            <div style={{backgroundColor: 'red', textAlign: 'center'}}>
                 <Profile
                     firstname = {this.state.firstname}
                     lastname = {this.state.lastname}
