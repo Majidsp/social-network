@@ -7,5 +7,6 @@ CREATE TABLE users(
     email VARCHAR NOT NULL UNIQUE CHECK (email != ''),
     password VARCHAR NOT NULL CHECK (password != ''),
     profile_pic_url VARCHAR(300),
+    bio VARCHAR(300),
     registered_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

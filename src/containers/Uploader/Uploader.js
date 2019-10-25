@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
+import Camera from '../Camera/Camera';
 
 class Uploader extends Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            camera: false
+        };
     }
 
     componentDidMount() {
@@ -28,7 +31,12 @@ class Uploader extends Component {
                 console.error(err);
                 this.setState({ error: true });
             });
+    }
 
+    showCamera() {
+        this.setState({
+            camera: !this.state.camera
+        });
     }
 
 
@@ -40,6 +48,9 @@ class Uploader extends Component {
                 {this.state.error && ( <div className="error">Something went wrong. Please try again!</div> )}
                 <input type="file" accept="image/*" onChange={(e) => this.fileSelected(e)} name="file" id="file" />
                 <button onClick={() => this.upload()}>Upload!</button>
+                <button onClick={() => this.showCamera()}>Take a picture!</button>
+                {this.state.camera && ( <Camera modal={() => this.showCamera()} /> )}
+
             </div>
         );
     }

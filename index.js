@@ -143,6 +143,17 @@ app.post('/upload', uploader.single('image'), s3.upload, function(req, res) {
         });
 });
 
+//Route 6
+app.post('/bio', (req, res) => {
+    const { bio } = req.body;
+    return db.updateBio(bio, req.session.userId)
+        .then(() => res.json())
+        .catch(error => {
+            console.error(error);
+            res.sendStatus(500);
+        });
+});
+
 // Star Route (must be the last route)
 app.get('*', function(req, res) {
     !req.session.userId ? res.redirect('/welcome') : res.sendFile(__dirname + '/index.html');

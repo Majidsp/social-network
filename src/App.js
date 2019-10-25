@@ -9,14 +9,13 @@ class App extends Component {
         super();
         this.state = {
             showUploader: false,
-            // bio: 'HI'
         };
 
         //This was for testing purposes.
         // this.methodInApp = this.methodInApp.bind(this);
 
         this.setImageUrl = this.setImageUrl.bind(this);
-        this.setBio = this.setBio.bind(this);
+        this.sendBioToDatabase = this.sendBioToDatabase.bind(this);
     }
 
     componentDidMount() {
@@ -29,6 +28,11 @@ class App extends Component {
                 this.setState({ error: true });
             });
     }
+
+    componentDidUpdate() {
+
+    }
+
 
     toggleModal() {
         this.setState({
@@ -49,8 +53,20 @@ class App extends Component {
         });
     }
 
-    setBio(bio) {
+    async setBio(bio) {
         this.setState({bio});
+    }
+
+    sendBioToDatabase(bio) {
+        this.setBio(bio).then(() => {
+            axios.post('/bio', {
+                bio: this.state.bio
+            }).catch(err => {
+                console.error(err);
+                this.setState({ error: true });
+            });
+        });
+
     }
 
     showState() {
@@ -66,7 +82,7 @@ class App extends Component {
                     imgUrl = {this.state.imgUrl}
                     profileModal = {() => this.toggleModal()}
                     profileBio = {this.state.bio}
-                    passbio = {this.setBio}
+                    passbio = {this.sendBioToDatabase}
                 />
                 {/* <ProfilePic
                     imgUrl = {this.state.imgUrl}
