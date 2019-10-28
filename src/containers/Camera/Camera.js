@@ -1,6 +1,6 @@
 import React from 'react';
 import Webcam from "react-webcam";
-// import axios from "../../axios";
+import axios from "../../axios";
 
 const videoConstraints = {
     width: 780,
@@ -15,6 +15,12 @@ const camera = () => {
         () => {
             const imageSrc = webcamRef.current.getScreenshot();
             console.log(imageSrc);
+            axios.post('/capture', {
+                imageBinary: imageSrc,
+            })
+                .then(() => console.log('imageSrc Sent!'))
+                .catch(err => console.log(err));
+
         },
         [webcamRef]
     );

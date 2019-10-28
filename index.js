@@ -10,6 +10,7 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require("./s3");
 const { s3Url } = require("./config");
+const fs = require('fs');
 
 
 //Configuring multer and uidsafe for uploaded files.
@@ -47,7 +48,8 @@ app.use(cookieSession({
 // app.use(express.urlencoded({extended: false}));
 
 //Middleware for recognizing the incoming Request Object as a JSON Object.
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+
 
 //Middleware to secure against CSURF attacks.
 app.use(csurf());
@@ -129,7 +131,7 @@ app.get('/user', (req, res) => {
         });
 });
 
-//Route 4
+//Route 5
 app.get('/api/user/:id', (req, res) => {
     let { id } = req.params;
     if( id == req.session.userId) {
@@ -144,11 +146,10 @@ app.get('/api/user/:id', (req, res) => {
                 res.sendStatus(500);
             });
     }
-
 });
 
 
-//Route 5
+//Route 6
 app.post('/upload', uploader.single('image'), s3.upload, function(req, res) {
     const url = `${s3Url}${req.file.filename}`;
 
@@ -162,13 +163,47 @@ app.post('/upload', uploader.single('image'), s3.upload, function(req, res) {
         });
 });
 
-//Route 6
+//Route 7
 app.post('/bio', (req, res) => {
     const { bio } = req.body;
     return db.updateBio(bio, req.session.userId)
         .then(() => res.json())
         .catch(error => {
             console.error(error);
+            res.sendStatus(500);
+        });
+});
+
+
+const createFile = (req, res, next) => {
+    let base64String = req.body.imageBinary;
+    let base64Image = base64String.split(';base64,').pop();
+
+    return  uidSafe(24)
+        .then(function(uid) {
+            fs.writeFile(`./uploads/${uid}.jpg`, base64Image, {encoding: 'base64'}, function() {
+                console.log('File created');
+                res.locals.imageName = `${uid}.jpg`;
+                res.locals.imagePath = `./uploads/${uid}.jpg`;
+                next();
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            res.sendStatus(500);
+        });
+};
+
+
+app.post('/capture', createFile, s3.u, (req, res) => {
+    const url = `${s3Url}${res.locals.imageName}`;
+    console.log(url);
+    return db.editProfilePic(url, req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch(err => {
+            console.error(err);
             res.sendStatus(500);
         });
 });

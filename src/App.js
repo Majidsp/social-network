@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Uploader from './containers/Uploader/Uploader';
+// import Camera from './containers/Camera/Camera';
 import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -83,7 +84,14 @@ class App extends Component {
                     )}
                     />
 
-                    <Route path="/user/:id" component={OtherProfile} />
+                    <Route path="/user/:id" render={props => (
+                        <OtherProfile
+                            key={props.match.url}
+                            match={props.match}
+                            history={props.history}
+                        />
+                    )}
+                    />
 
                     {this.state.showUploader &&
                         <Uploader

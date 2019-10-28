@@ -40,3 +40,25 @@ exports.upload = function(req, res, next) {
         }
     );
 };
+
+exports.u = function(req, res, next) {
+
+    s3.putObject({
+        Bucket: 'spicedling',
+        ACL: 'public-read',
+        Key: res.locals.imageName,
+        Body: fs.createReadStream(res.locals.imagePath),
+        ContentType: 'image/jpeg',
+    }).promise().then(
+        () => {
+            console.log('it worked!!!');
+            next();
+        }
+    ).catch(
+        err => {
+            console.log('uh oh');
+            console.log(err);
+            res.sendStatus(500);
+        }
+    );
+};
