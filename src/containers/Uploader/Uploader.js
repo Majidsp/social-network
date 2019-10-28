@@ -49,7 +49,7 @@ class Uploader extends Component {
                 <input type="file" accept="image/*" onChange={(e) => this.fileSelected(e)} name="file" id="file" />
                 <button onClick={() => this.upload()}>Upload!</button>
                 <button onClick={() => this.showCamera()}>Take a picture!</button>
-                {this.state.camera && ( <Camera modal={() => this.showCamera()} /> )}
+                {this.state.camera && ( <Camera modal={() => this.showCamera()} setUrlCamera={this.props.setUrl} /> )}
 
             </div>
         );

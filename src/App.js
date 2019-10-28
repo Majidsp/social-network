@@ -21,7 +21,8 @@ class App extends Component {
     componentDidMount() {
         axios.get('/user')
             .then(({ data }) => {
-                this.setState({...data[0]});
+                console.log(data[0]);
+                this.setState(data[0]);
             })
             .catch(err => {
                 console.error(err);
@@ -42,7 +43,7 @@ class App extends Component {
 
     setImageUrl(imgUrl) {
         this.setState({
-            imgUrl: imgUrl,
+            profile_pic_url: imgUrl,
             showUploader: !this.state.showUploader
         });
     }
@@ -76,7 +77,7 @@ class App extends Component {
                         <Profile
                             firstname = {this.state.firstname}
                             lastname = {this.state.lastname}
-                            imgUrl = {this.state.imgUrl}
+                            imgUrl = {this.state.profile_pic_url}
                             profileModal = {() => this.toggleModal()}
                             profileBio = {this.state.bio}
                             passbio = {this.sendBioToDatabase}

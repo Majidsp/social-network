@@ -8,17 +8,18 @@ const videoConstraints = {
     facingMode: "user"
 };
 
-const camera = () => {
+const camera = (props) => {
     const webcamRef = React.useRef(null);
 
     const capture = React.useCallback(
         () => {
             const imageSrc = webcamRef.current.getScreenshot();
-            console.log(imageSrc);
             axios.post('/capture', {
                 imageBinary: imageSrc,
             })
-                .then(() => console.log('imageSrc Sent!'))
+                .then(({ data }) => {
+                    props.setUrlCamera(data[0].profile_pic_url);
+                })
                 .catch(err => console.log(err));
 
         },

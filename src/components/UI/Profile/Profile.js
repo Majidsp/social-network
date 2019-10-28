@@ -10,7 +10,7 @@ const profile = ({ firstname, lastname, imgUrl, profileModal, profileBio, passbi
             <img src={imgUrl} alt="Profile picture!" />
             <h1>Welcome {firstname} {lastname}</h1>
             <BioEditor bio={profileBio} passBioTwo={passbio}/>
-            <ProfilePic modal={profileModal} />
+            <ProfilePic modal={profileModal} imgUrlProfilePic={imgUrl}/>
         </div>
     );
 };
