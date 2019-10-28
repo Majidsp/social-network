@@ -129,6 +129,25 @@ app.get('/user', (req, res) => {
         });
 });
 
+//Route 4
+app.get('/api/user/:id', (req, res) => {
+    let { id } = req.params;
+    if( id == req.session.userId) {
+        res.json( {"error": "same id"});
+    } else {
+        return db.getUserInfo(id)
+            .then(({rows}) => {
+                res.json(rows);
+            })
+            .catch(error => {
+                console.error(error);
+                res.sendStatus(500);
+            });
+    }
+
+});
+
+
 //Route 5
 app.post('/upload', uploader.single('image'), s3.upload, function(req, res) {
     const url = `${s3Url}${req.file.filename}`;

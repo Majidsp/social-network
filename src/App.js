@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Uploader from './containers/Uploader/Uploader';
 import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
+import { BrowserRouter, Route } from 'react-router-dom';
+import OtherProfile from './components/UI/OtherProfile/Otherprofile';
 
 
 class App extends Component {
@@ -11,17 +13,14 @@ class App extends Component {
             showUploader: false,
         };
 
-        //This was for testing purposes.
-        // this.methodInApp = this.methodInApp.bind(this);
-
         this.setImageUrl = this.setImageUrl.bind(this);
         this.sendBioToDatabase = this.sendBioToDatabase.bind(this);
     }
 
     componentDidMount() {
-        axios.get('./user')
+        axios.get('/user')
             .then(({ data }) => {
-                this.setState(data[0]);
+                this.setState({...data[0]});
             })
             .catch(err => {
                 console.error(err);
@@ -39,12 +38,6 @@ class App extends Component {
             showUploader: !this.state.showUploader
         });
     }
-
-    //This was for testing purposes.
-    // methodInApp(firstname) {
-    //     console.log('I AM A METHOD IN APP!');
-    //     this.setState({firstname});
-    // }
 
     setImageUrl(imgUrl) {
         this.setState({
@@ -75,29 +68,31 @@ class App extends Component {
 
     render () {
         return (
-            <div style={{backgroundColor: 'red', textAlign: 'center'}}>
-                <Profile
-                    firstname = {this.state.firstname}
-                    lastname = {this.state.lastname}
-                    imgUrl = {this.state.imgUrl}
-                    profileModal = {() => this.toggleModal()}
-                    profileBio = {this.state.bio}
-                    passbio = {this.sendBioToDatabase}
-                />
-                {/* <ProfilePic
-                    imgUrl = {this.state.imgUrl}
-                    modal = {() => this.toggleModal()}
-                /> */}
+            <BrowserRouter>
+                <div style={{backgroundColor: 'red', textAlign: 'center'}}>
 
-                {this.state.showUploader &&
-                    <Uploader
-                        //This was for testing purposes.
-                        // sthToTest = {this.methodInApp}
-                        setUrl = {this.setImageUrl}
+                    <Route exact path="/" render={() => (
+                        <Profile
+                            firstname = {this.state.firstname}
+                            lastname = {this.state.lastname}
+                            imgUrl = {this.state.imgUrl}
+                            profileModal = {() => this.toggleModal()}
+                            profileBio = {this.state.bio}
+                            passbio = {this.sendBioToDatabase}
+                        />
+                    )}
                     />
-                }
-                <button onClick={() => this.showState()}>Show State</button>
-            </div>
+
+                    <Route path="/user/:id" component={OtherProfile} />
+
+                    {this.state.showUploader &&
+                        <Uploader
+                            setUrl = {this.setImageUrl}
+                        />
+                    }
+                </div>
+            </BrowserRouter>
+
         );
     }
 }
