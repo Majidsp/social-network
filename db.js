@@ -37,11 +37,18 @@ const updateBio = (bio, id) => {
     );
 };
 
+const recentlyJoinedUsers = () => {
+    return db.query(
+        `SELECT * FROM users ORDER BY id DESC LIMIT 3;`
+    );
+};
+
 
 module.exports = {
     registerNewUser,
     logIn,
     getUserInfo,
     editProfilePic,
-    updateBio
+    updateBio,
+    recentlyJoinedUsers
 };

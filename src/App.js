@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Uploader from './containers/Uploader/Uploader';
-// import Camera from './containers/Camera/Camera';
 import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
 import { BrowserRouter, Route } from 'react-router-dom';
 import OtherProfile from './components/UI/OtherProfile/Otherprofile';
+import FindPeople from './containers/FindPeople/FindPeople';
 
 
 class App extends Component {
@@ -21,7 +21,6 @@ class App extends Component {
     componentDidMount() {
         axios.get('/user')
             .then(({ data }) => {
-                console.log(data[0]);
                 this.setState(data[0]);
             })
             .catch(err => {
@@ -72,6 +71,9 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div style={{backgroundColor: 'red', textAlign: 'center'}}>
+                    <meta  content='no-cache' />
+                    <meta  content='0' />
+                    <meta  content='no-cache' />
 
                     <Route exact path="/" render={() => (
                         <Profile
@@ -91,6 +93,11 @@ class App extends Component {
                             match={props.match}
                             history={props.history}
                         />
+                    )}
+                    />
+
+                    <Route path="/users" render={ () => (
+                        <FindPeople />
                     )}
                     />
 

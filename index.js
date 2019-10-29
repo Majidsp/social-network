@@ -194,7 +194,7 @@ const createFile = (req, res, next) => {
         });
 };
 
-
+//Route 8
 app.post('/capture', createFile, s3.u, (req, res) => {
     const url = `${s3Url}${res.locals.imageName}`;
     console.log(url);
@@ -207,6 +207,20 @@ app.post('/capture', createFile, s3.u, (req, res) => {
             res.sendStatus(500);
         });
 });
+
+
+//Route 9
+app.get('/api/users', (req, res) => {
+    return db.recentlyJoinedUsers()
+        .then(({rows}) => {
+            res.json(rows);
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
+
 
 // Star Route (must be the last route)
 app.get('*', function(req, res) {
