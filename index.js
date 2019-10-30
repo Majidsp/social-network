@@ -221,6 +221,19 @@ app.get('/api/users', (req, res) => {
         });
 });
 
+//Route 10
+app.get('/search/:input', (req, res) => {
+    let { input } = req.params;
+    return db.findUsers(input, req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
+
 
 // Star Route (must be the last route)
 app.get('*', function(req, res) {

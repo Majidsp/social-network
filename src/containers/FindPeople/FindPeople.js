@@ -4,24 +4,35 @@ import axios from "../../axios";
 
 function FindPeople() {
     const [users, setUsers] = useState([]);
-    const [error, setError] = useState(false);
+    const [searchInput, setSearchInput] = useState(false);
+
+
 
     useEffect(() => {
-        axios.get('api/users')
-            .then(( {data}) => {
-                console.log(data);
+        let ignore = false;
+        (async () => {
+            if(!searchInput) {
+                const { data } = await axios.get('api/users');
                 setUsers(data);
-            })
-            .catch(err => {
-                console.error(err);
-                setError(true);
-            });
-    }, []);
+            } else {
+                const { data } = await axios.get(`/search/${searchInput}`);
+                if(!ignore) {
+                    setUsers(data);
+                } else {
+                    console.log('Ignored');
+                }
+            }
+        })();
+        return () => {
+            ignore = true;
+        };
+    }, [ searchInput ]);
 
     return (
         <div style={{backgroundColor: 'grey'}}>
             <h1>Find People</h1>
-            {error && <p>Something went wrong.</p>}
+            <h4>Checkout who just joined!</h4>
+            Find People: <input onChange={e => setSearchInput(e.target.value)} />
             {users.map(
                 user => (
                     <div key={user.id}>

@@ -43,6 +43,13 @@ const recentlyJoinedUsers = () => {
     );
 };
 
+const findUsers = (input, id) => {
+    return db.query(
+        `SELECT * FROM users WHERE firstname ILIKE $1 AND id != $2;`,
+        [input + '%', id]
+    );
+};
+
 
 module.exports = {
     registerNewUser,
@@ -50,5 +57,6 @@ module.exports = {
     getUserInfo,
     editProfilePic,
     updateBio,
-    recentlyJoinedUsers
+    recentlyJoinedUsers,
+    findUsers
 };
