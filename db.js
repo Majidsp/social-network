@@ -58,11 +58,27 @@ const checkFriendship = (receiver_id, sender_id) => {
     );
 };
 
-const friendshipRequest = (sender_id, receiver_id) => {
+const createFriendshipRequest = (sender_id, receiver_id) => {
     return db.query(
         `INSERT INTO friendships (sender_id, receiver_id)
         VALUES ($1, $2)`,
         [sender_id, receiver_id]
+    );
+};
+
+const cancelFriendshipRequest = (receiver_id, sender_id) => {
+    return db.query(
+        `DELETE FROM friendships WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1);`,
+        [receiver_id, sender_id]
+    );
+};
+
+const acceptFriendRequest = (receiver_id, sender_id) => {
+    return db.query(
+        `UPDATE friendships SET accepted = TRUE WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1);`,
+        [receiver_id, sender_id]
     );
 };
 
@@ -75,5 +91,7 @@ module.exports = {
     recentlyJoinedUsers,
     findUsers,
     checkFriendship,
-    friendshipRequest
+    createFriendshipRequest,
+    cancelFriendshipRequest,
+    acceptFriendRequest
 };

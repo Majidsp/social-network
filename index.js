@@ -248,9 +248,8 @@ app.post('/friendship', (req, res) => {
 });
 
 app.post('/sendRequest', (req, res) => {
-    console.log(req.body);
     const { receiver_id } = req.body;
-    return db.friendshipRequest(req.session.userId, receiver_id)
+    return db.createFriendshipRequest(req.session.userId, receiver_id)
         .then(() => {
             res.json({"request":"sent"});
         })
@@ -260,6 +259,29 @@ app.post('/sendRequest', (req, res) => {
         });
 });
 
+app.post('/cancelRequest', (req, res) => {
+    const { id } = req.body;
+    return db.cancelFriendshipRequest(id, req.session.userId)
+        .then(() => {
+            res.json({"request":"deleted"});
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
+
+app.post('/acceptRequest', (req, res) => {
+    const { id } = req.body;
+    return db.acceptFriendRequest(id, req.session.userId)
+        .then(() => {
+            res.json({"request":"accepted"});
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
 
 // Star Route (must be the last route)
 app.get('*', function(req, res) {

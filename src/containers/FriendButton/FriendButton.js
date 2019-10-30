@@ -10,21 +10,34 @@ const FriendButton = (props) => {
 
     const friendshipManager = () => {
         if(!exist) {
-            axios.post('/sendRequest', {receiver_id: props.userId})
-                .then(() => setButtonText(''))
-                .catch(err => console.log(err));
+            sendRequest();
         } else if (sender) {
-            test();
+            cancelRequest();
         } else if (receiver) {
-            //Do sth to accept the friend request.
+            acceptRequest();
         } else if (accepted) {
-            //Do sth to end the friendship.
+            cancelRequest();
         }
     };
 
-    const test = () => {
-        console.log('It works!');
+    const sendRequest = () => {
+        axios.post('/sendRequest', {receiver_id: props.userId})
+            .then(() => setButtonText(''))
+            .catch(err => console.log(err));
     };
+
+    const cancelRequest = () => {
+        axios.post('/cancelRequest', {id: props.userId})
+            .then(() => setButtonText(''))
+            .catch(err => console.log(err));
+    };
+
+    const acceptRequest = () => {
+        axios.post('/acceptRequest', {id: props.userId})
+            .then(() => setButtonText(''))
+            .catch(err => console.log(err));
+    };
+
 
     useEffect(() => {
         (async () => {
