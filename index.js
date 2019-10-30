@@ -13,7 +13,7 @@ const { s3Url } = require("./config");
 const fs = require('fs');
 
 
-//Configuring multer and uidsafe for uploaded files.
+//Configuring multer and uidsafe for uploading files.
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, __dirname + '/uploads');
@@ -227,6 +227,32 @@ app.get('/search/:input', (req, res) => {
     return db.findUsers(input, req.session.userId)
         .then(({ rows }) => {
             res.json(rows);
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
+
+//Route 11
+app.post('/friendship', (req, res) => {
+    const { receiver_id } = req.body;
+    return db.checkFriendship(receiver_id, req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+        });
+});
+
+app.post('/sendRequest', (req, res) => {
+    console.log(req.body);
+    const { receiver_id } = req.body;
+    return db.friendshipRequest(req.session.userId, receiver_id)
+        .then(() => {
+            res.json({"request":"sent"});
         })
         .catch(err => {
             console.error(err);

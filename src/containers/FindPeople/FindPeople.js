@@ -6,8 +6,6 @@ function FindPeople() {
     const [users, setUsers] = useState([]);
     const [searchInput, setSearchInput] = useState(false);
 
-
-
     useEffect(() => {
         let ignore = false;
         (async () => {
@@ -36,7 +34,7 @@ function FindPeople() {
             {users.map(
                 user => (
                     <div key={user.id}>
-                        <img src={user.profile_pic_url} />
+                        <img src={user.profile_pic_url} alt="Image!"/>
                         <h1>{user.firstname} {user.lastname}</h1>
                         <p>{user.bio}</p>
                     </div>

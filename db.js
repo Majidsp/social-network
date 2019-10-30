@@ -50,6 +50,21 @@ const findUsers = (input, id) => {
     );
 };
 
+const checkFriendship = (receiver_id, sender_id) => {
+    return db.query(
+        `SELECT * FROM friendships WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1);`,
+        [receiver_id, sender_id]
+    );
+};
+
+const friendshipRequest = (sender_id, receiver_id) => {
+    return db.query(
+        `INSERT INTO friendships (sender_id, receiver_id)
+        VALUES ($1, $2)`,
+        [sender_id, receiver_id]
+    );
+};
 
 module.exports = {
     registerNewUser,
@@ -58,5 +73,7 @@ module.exports = {
     editProfilePic,
     updateBio,
     recentlyJoinedUsers,
-    findUsers
+    findUsers,
+    checkFriendship,
+    friendshipRequest
 };

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from "../../../axios";
+import axios from '../../../axios';
+import FriendButton from '../../../containers/FriendButton/FriendButton';
 
 class OtherProfile extends Component {
     constructor() {
@@ -28,6 +29,7 @@ class OtherProfile extends Component {
                 <img src={this.state.profile_pic_url || '../../../assets/images/default_profile_pic.jpg'} />
                 <h1>Welcome {this.state.firstname} {this.state.lastname}</h1>
                 <p>{this.state.bio}</p>
+                <FriendButton userId={this.props.match.params.id} />
             </div>
         );
     }
