@@ -121,14 +121,23 @@ app.post('/login', (req, res) => {
 
 //Route 4
 app.get('/user', (req, res) => {
-    return db.getUserInfo(req.session.userId)
-        .then(({rows}) => {
+    // return db.getUserInfo(req.session.userId)
+    //     .then(({rows}) => {
+    //         res.json(rows);
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            const { rows } = await db.getUserInfo(req.session.userId);
             res.json(rows);
-        })
-        .catch(error => {
-            console.error(error);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 5
@@ -137,14 +146,23 @@ app.get('/api/user/:id', (req, res) => {
     if( id == req.session.userId) {
         res.json( {"error": "same id"});
     } else {
-        return db.getUserInfo(id)
-            .then(({rows}) => {
+        // return db.getUserInfo(id)
+        //     .then(({rows}) => {
+        //         res.json(rows);
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //         res.sendStatus(500);
+        //     });
+        return (async () => {
+            try {
+                const { rows } = await db.getUserInfo(id);
                 res.json(rows);
-            })
-            .catch(error => {
-                console.error(error);
+            } catch(err) {
+                console.log(err);
                 res.sendStatus(500);
-            });
+            }
+        })();
     }
 });
 
@@ -153,25 +171,43 @@ app.get('/api/user/:id', (req, res) => {
 app.post('/upload', uploader.single('image'), s3.upload, function(req, res) {
     const url = `${s3Url}${req.file.filename}`;
 
-    return db.editProfilePic(url, req.session.userId)
-        .then(({ rows }) => {
+    // return db.editProfilePic(url, req.session.userId)
+    //     .then(({ rows }) => {
+    //         res.json(rows);
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            const { rows } = await db.editProfilePic(url, req.session.userId);
             res.json(rows);
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 7
 app.post('/bio', (req, res) => {
     const { bio } = req.body;
-    return db.updateBio(bio, req.session.userId)
-        .then(() => res.json())
-        .catch(error => {
-            console.error(error);
+    // return db.updateBio(bio, req.session.userId)
+    //     .then(() => res.json())
+    //     .catch(error => {
+    //         console.error(error);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            await db.updateBio(bio, req.session.userId);
+            res.json();
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 
@@ -198,79 +234,133 @@ const createFile = (req, res, next) => {
 app.post('/capture', createFile, s3.u, (req, res) => {
     const url = `${s3Url}${res.locals.imageName}`;
     console.log(url);
-    return db.editProfilePic(url, req.session.userId)
-        .then(({ rows }) => {
+    // return db.editProfilePic(url, req.session.userId)
+    //     .then(({ rows }) => {
+    //         res.json(rows);
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            const { rows } = await db.editProfilePic(url, req.session.userId);
             res.json(rows);
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 
 //Route 9
 app.get('/api/users', (req, res) => {
-    return db.recentlyJoinedUsers()
-        .then(({rows}) => {
+    // return db.recentlyJoinedUsers()
+    //     .then(({rows}) => {
+    //         res.json(rows);
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            const { rows } = await db.recentlyJoinedUsers();
             res.json(rows);
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 10
 app.get('/search/:input', (req, res) => {
     let { input } = req.params;
-    return db.findUsers(input, req.session.userId)
-        .then(({ rows }) => {
+    // return db.findUsers(input, req.session.userId)
+    //     .then(({ rows }) => {
+    //         res.json(rows);
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            const { rows } = await db.findUsers(input, req.session.userId);
             res.json(rows);
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 11
 app.post('/friendship', (req, res) => {
     const { receiver_id } = req.body;
-    return db.checkFriendship(receiver_id, req.session.userId)
-        .then(({ rows }) => {
+    // return db.checkFriendship(receiver_id, req.session.userId)
+    //     .then(({ rows }) => {
+    //         res.json(rows);
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            const { rows } = await db.checkFriendship(receiver_id, req.session.userId);
             res.json(rows);
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 12
 app.post('/sendRequest', (req, res) => {
     const { receiver_id } = req.body;
-    return db.createFriendshipRequest(req.session.userId, receiver_id)
-        .then(() => {
+    // return db.createFriendshipRequest(req.session.userId, receiver_id)
+    //     .then(() => {
+    //         res.json({"request":"sent"});
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            await db.createFriendshipRequest(req.session.userId, receiver_id);
             res.json({"request":"sent"});
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 13
 app.post('/cancelRequest', (req, res) => {
     const { id } = req.body;
-    return db.cancelFriendshipRequest(id, req.session.userId)
-        .then(() => {
+    // return db.cancelFriendshipRequest(id, req.session.userId)
+    //     .then(() => {
+    //         res.json({"request":"deleted"});
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            await db.cancelFriendshipRequest(id, req.session.userId);
             res.json({"request":"deleted"});
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 //Route 14
