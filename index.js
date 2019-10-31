@@ -247,6 +247,7 @@ app.post('/friendship', (req, res) => {
         });
 });
 
+//Route 12
 app.post('/sendRequest', (req, res) => {
     const { receiver_id } = req.body;
     return db.createFriendshipRequest(req.session.userId, receiver_id)
@@ -259,6 +260,7 @@ app.post('/sendRequest', (req, res) => {
         });
 });
 
+//Route 13
 app.post('/cancelRequest', (req, res) => {
     const { id } = req.body;
     return db.cancelFriendshipRequest(id, req.session.userId)
@@ -271,6 +273,7 @@ app.post('/cancelRequest', (req, res) => {
         });
 });
 
+//Route 14
 app.post('/acceptRequest', (req, res) => {
     const { id } = req.body;
     return db.acceptFriendRequest(id, req.session.userId)

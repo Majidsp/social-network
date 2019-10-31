@@ -18,25 +18,24 @@ const FriendButton = (props) => {
     };
 
     const sendRequest = () => {
-        // (async () => {
-        //     await axios.post('/sendRequest', {receiver_id: props.userId});
-        //     setButtonText('');
-        // })();
-        axios.post('/sendRequest', {receiver_id: props.userId})
-            .then(() => setRerender(!rerender))
-            .catch(err => console.log(err));
+        (async () => {
+            await axios.post('/sendRequest', {receiver_id: props.userId});
+            setRerender(!rerender);
+        })();
     };
 
     const cancelRequest = () => {
-        axios.post('/cancelRequest', {id: props.userId})
-            .then(() => setRerender(!rerender))
-            .catch(err => console.log(err));
+        (async () => {
+            await axios.post('/cancelRequest', {id: props.userId});
+            setRerender(!rerender);
+        })();
     };
 
     const acceptRequest = () => {
-        axios.post('/acceptRequest', {id: props.userId})
-            .then(() => setRerender(!rerender))
-            .catch(err => console.log(err));
+        (async () => {
+            await axios.post('/acceptRequest', {id: props.userId});
+            setRerender(!rerender);
+        })();
     };
 
     useEffect(() => {
