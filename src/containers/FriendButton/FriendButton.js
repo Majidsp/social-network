@@ -4,13 +4,12 @@ import axios from "../../axios";
 const FriendButton = (props) => {
     const [buttonText, setButtonText] = useState('');
     const [rerender, setRerender] = useState(false);
+    const [error, setError] = useState(false);
 
     const friendshipManager = () => {
         if(buttonText == 'Send friend request') {
             sendRequest();
-        } else if (buttonText == 'Cancel friend request') {
-            cancelRequest();
-        } else if (buttonText == 'End friendship') {
+        } else if ((buttonText == 'End friendship') || (buttonText == 'Cancel friend request')) {
             cancelRequest();
         } else if (buttonText == 'Accept friend request') {
             acceptRequest();
@@ -19,22 +18,37 @@ const FriendButton = (props) => {
 
     const sendRequest = () => {
         (async () => {
-            await axios.post('/sendRequest', {receiver_id: props.userId});
-            setRerender(!rerender);
+            try {
+                await axios.post('/sendRequest', {receiver_id: props.userId});
+                setRerender(!rerender);
+            } catch(err) {
+                console.log(err);
+                setError(true);
+            }
         })();
     };
 
     const cancelRequest = () => {
         (async () => {
-            await axios.post('/cancelRequest', {id: props.userId});
-            setRerender(!rerender);
+            try {
+                await axios.post('/cancelRequest', {id: props.userId});
+                setRerender(!rerender);
+            } catch(err) {
+                console.log(err);
+                setError(true);
+            }
         })();
     };
 
     const acceptRequest = () => {
         (async () => {
-            await axios.post('/acceptRequest', {id: props.userId});
-            setRerender(!rerender);
+            try {
+                await axios.post('/acceptRequest', {id: props.userId});
+                setRerender(!rerender);
+            } catch(err) {
+                console.log(err);
+                setError(true);
+            }
         })();
     };
 
@@ -59,6 +73,7 @@ const FriendButton = (props) => {
 
     return (
         <div>
+            {error && <p>Something went wrong. Please try again!</p>}
             <button onClick={friendshipManager}>{buttonText}</button>
         </div>
     );

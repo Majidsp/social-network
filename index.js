@@ -276,14 +276,23 @@ app.post('/cancelRequest', (req, res) => {
 //Route 14
 app.post('/acceptRequest', (req, res) => {
     const { id } = req.body;
-    return db.acceptFriendRequest(id, req.session.userId)
-        .then(() => {
+    // return db.acceptFriendRequest(id, req.session.userId)
+    //     .then(() => {
+    //         res.json({"request":"accepted"});
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.sendStatus(500);
+    //     });
+    return (async () => {
+        try {
+            await db.acceptFriendRequest(id, req.session.userId);
             res.json({"request":"accepted"});
-        })
-        .catch(err => {
-            console.error(err);
+        } catch(err) {
+            console.log(err);
             res.sendStatus(500);
-        });
+        }
+    })();
 });
 
 // Star Route (must be the last route)
