@@ -8,42 +8,22 @@ const FriendButton = (props) => {
 
     const friendshipManager = () => {
         if(buttonText == 'Send friend request') {
-            sendRequest();
+            requester(sendReq);
         } else if ((buttonText == 'End friendship') || (buttonText == 'Cancel friend request')) {
-            cancelRequest();
+            requester(cancelReq);
         } else if (buttonText == 'Accept friend request') {
-            acceptRequest();
+            requester(acceptReq);
         }
     };
 
-    const sendRequest = () => {
-        (async () => {
-            try {
-                await axios.post('/sendRequest', {receiver_id: props.userId});
-                setRerender(!rerender);
-            } catch(err) {
-                console.log(err);
-                setError(true);
-            }
-        })();
-    };
+    const sendReq = () => axios.post('/sendRequest', {receiver_id: props.userId});
+    const cancelReq = () => axios.post('/cancelRequest', {id: props.userId});
+    const acceptReq = () => axios.post('/acceptRequest', {id: props.userId});
 
-    const cancelRequest = () => {
+    const requester = (arg) => {
         (async () => {
             try {
-                await axios.post('/cancelRequest', {id: props.userId});
-                setRerender(!rerender);
-            } catch(err) {
-                console.log(err);
-                setError(true);
-            }
-        })();
-    };
-
-    const acceptRequest = () => {
-        (async () => {
-            try {
-                await axios.post('/acceptRequest', {id: props.userId});
+                await arg();
                 setRerender(!rerender);
             } catch(err) {
                 console.log(err);
