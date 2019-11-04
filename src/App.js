@@ -5,8 +5,11 @@ import axios from "./axios";
 import { BrowserRouter, Route } from 'react-router-dom';
 import OtherProfile from './components/UI/OtherProfile/Otherprofile';
 import FindPeople from './containers/FindPeople/FindPeople';
+import Friends from './containers/Friends/Friends';
 
-
+//store has to be passed as a prop in this components
+//app has to be wrapped with provider.
+//consiguration for redux.
 class App extends Component {
     constructor() {
         super();
@@ -71,9 +74,9 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div style={{backgroundColor: 'red', textAlign: 'center'}}>
-                    <meta  content='no-cache' />
-                    <meta  content='0' />
-                    <meta  content='no-cache' />
+                    <meta content='no-cache' />
+                    <meta content='0' />
+                    <meta content='no-cache' />
 
                     <Route exact path="/" render={() => (
                         <Profile
@@ -106,6 +109,12 @@ class App extends Component {
                             setUrl = {this.setImageUrl}
                         />
                     }
+
+                    <Route path="/friends" render={() => (
+                        <Friends />
+                    )}
+                    />
+
                 </div>
             </BrowserRouter>
 

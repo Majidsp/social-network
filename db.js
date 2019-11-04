@@ -82,6 +82,16 @@ const acceptFriendRequest = (receiver_id, sender_id) => {
     );
 };
 
+const friendsAndWannabes = (id) => {
+    return db.query(
+        `SELECT users.id, first, last, image, accepted FROM friendships JOIN users
+        ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND receiver_id = $1 AND sender_id = users.id);`,
+        [id]
+    );
+};
+
 module.exports = {
     registerNewUser,
     logIn,
@@ -93,5 +103,6 @@ module.exports = {
     checkFriendship,
     createFriendshipRequest,
     cancelFriendshipRequest,
-    acceptFriendRequest
+    acceptFriendRequest,
+    friendsAndWannabes
 };

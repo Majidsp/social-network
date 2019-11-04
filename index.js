@@ -117,6 +117,17 @@ app.post('/login', (req, res) => {
             console.error(error);
             res.sendStatus(500);
         });
+
+    // return (async () => {
+    //     try {
+    //         const { rows } = await db.logIn(req.body.email);
+    //         id = rows[0].id;
+    //         const { rows } = await encoding.toCompare(req.body.password, rows[0].password);
+    //     } catch(err) {
+    //         console.log(err);
+    //         res.sendStatus(500);
+    //     }
+    // })();
 });
 
 //Route 4
@@ -378,6 +389,20 @@ app.post('/acceptRequest', (req, res) => {
         try {
             await db.acceptFriendRequest(id, req.session.userId);
             res.json({"request":"accepted"});
+        } catch(err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+    })();
+});
+
+
+//Route 15
+app.get('/friends-wannabes', (req, res) => {
+    return (async () => {
+        try {
+            await db.friendsAndWannabes(req.session.userId);
+            res.json({"request":"received"});
         } catch(err) {
             console.log(err);
             res.sendStatus(500);
