@@ -27,19 +27,22 @@ function FindPeople() {
     }, [ searchInput ]);
 
     return (
-        <div style={{backgroundColor: 'grey'}}>
-            <h1>Find People</h1>
-            <h4>Checkout who just joined!</h4>
-            Find People: <input onChange={e => setSearchInput(e.target.value)} />
+        <div className="findPeople">
+            <div>
+                <h2>Checkout who just joined Connect!</h2>
+            </div>
+            <div>
+                Or Find People: <input onChange={e => setSearchInput(e.target.value)} />
+            </div>
             {users.map(
                 user => (
-                    <div key={user.id}>
+                    <div className="findPeople-user" key={user.id}>
                         <img src={user.profile_pic_url} alt="Image!"/>
-                        <h1>{user.firstname} {user.lastname}</h1>
-                        <p>{user.bio}</p>
+                        <h5>{user.firstname} {user.lastname}</h5>
                     </div>
                 )
             )}
+
         </div>
     );
 }

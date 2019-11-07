@@ -11,6 +11,8 @@ const path = require('path');
 const s3 = require("./s3");
 const { s3Url } = require("./config");
 const fs = require('fs');
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: 'localhost:8080' });
 
 
 //Configuring multer and uidsafe for uploading files.
@@ -39,10 +41,14 @@ app.use(express.static('./src'));
 app.use(compression());
 
 //Middleware for cookieSession.
-app.use(cookieSession({
+const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
-    maxAge: 1000 * 60 * 60 * 24 * 14
-}));
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 //Middleware for recognizing the incoming Request Object as strings or arrays.
 // app.use(express.urlencoded({extended: false}));
@@ -396,13 +402,12 @@ app.post('/acceptRequest', (req, res) => {
     })();
 });
 
-
 //Route 15
-app.get('/friends-wannabes', (req, res) => {
+app.get('/api/friends-wannabes', (req, res) => {
     return (async () => {
         try {
-            await db.friendsAndWannabes(req.session.userId);
-            res.json({"request":"received"});
+            const { rows } = await db.friendsAndWannabes(req.session.userId);
+            res.json(rows);
         } catch(err) {
             console.log(err);
             res.sendStatus(500);
@@ -410,10 +415,65 @@ app.get('/friends-wannabes', (req, res) => {
     })();
 });
 
+
 // Star Route (must be the last route)
 app.get('*', function(req, res) {
     !req.session.userId ? res.redirect('/welcome') : res.sendFile(__dirname + '/index.html');
 });
 
 
-app.listen(8080, function() { console.log("I'm listening."); });
+server.listen(8080, function() { console.log("I'm listening."); });
+
+
+io.on('connection', function(socket) {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.userId;
+
+    console.log(`socket with the id ${socket.id} amd the user id ${userId} is now connected`);
+
+    (async () => {
+        try {
+            const { rows } = await db.getMessages();
+            io.sockets.sockets[socket.id].emit('chatMessages', rows);
+        } catch(err) {
+            console.log(err);
+        }
+    })();
+
+
+
+    socket.on('chatMessage', async function(message) {
+        try {
+            const { rows } = await db.newMessage(userId, message);
+            const sender = await db.getMessageSenderInfo(userId);
+            const msg = [{...rows[0], ...sender.rows[0]}];
+            console.log(msg);
+            io.sockets.emit('chatMessage', msg);
+        } catch(err) {
+            console.error(err);
+        }
+
+    });
+
+
+
+
+    socket.on('disconnect', function() {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+    });
+    //
+    // socket.on('thanks', function(data) {
+    //     console.log(data);
+    // });
+    //
+    // socket.on('chatMessage', function() {
+    //     console.log('yooooy');
+    // });
+    //
+    // socket.emit('welcome', {
+    //     message: 'Welome. It is nice to see you'
+    // });
+});

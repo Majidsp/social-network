@@ -6,10 +6,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import OtherProfile from './components/UI/OtherProfile/Otherprofile';
 import FindPeople from './containers/FindPeople/FindPeople';
 import Friends from './containers/Friends/Friends';
+import Chat from './containers/chat/chat';
+import ProfilePic from './components/UI/ProfilePic/ProfilePic';
 
-//store has to be passed as a prop in this components
-//app has to be wrapped with provider.
-//consiguration for redux.
+
+
 class App extends Component {
     constructor() {
         super();
@@ -35,7 +36,6 @@ class App extends Component {
     componentDidUpdate() {
 
     }
-
 
     toggleModal() {
         this.setState({
@@ -73,7 +73,7 @@ class App extends Component {
     render () {
         return (
             <BrowserRouter>
-                <div style={{backgroundColor: 'red', textAlign: 'center'}}>
+                <div id="app" style={{textAlign: 'center'}}>
                     <meta content='no-cache' />
                     <meta content='0' />
                     <meta content='no-cache' />
@@ -90,17 +90,24 @@ class App extends Component {
                     )}
                     />
 
-                    <Route path="/user/:id" render={props => (
-                        <OtherProfile
-                            key={props.match.url}
-                            match={props.match}
-                            history={props.history}
-                        />
+                    <Route exact path="/user/:id" render={props => (
+                        <div>
+                            <ProfilePic modal={() => this.toggleModal()} imgUrlProfilePic={this.state.profile_pic_url}/>
+                            <OtherProfile
+                                key={props.match.url}
+                                match={props.match}
+                                history={props.history}
+                            />
+                        </div>
+
                     )}
                     />
 
-                    <Route path="/users" render={ () => (
-                        <FindPeople />
+                    <Route exact path="/users" render={() => (
+                        <div>
+                            <ProfilePic modal={() => this.toggleModal()} imgUrlProfilePic={this.state.profile_pic_url}/>
+                            <FindPeople />
+                        </div>
                     )}
                     />
 
@@ -111,9 +118,21 @@ class App extends Component {
                     }
 
                     <Route path="/friends" render={() => (
-                        <Friends />
+                        <div>
+                            <ProfilePic modal={() => this.toggleModal()} imgUrlProfilePic={this.state.profile_pic_url}/>
+                            <Friends />
+                        </div>
                     )}
                     />
+
+                    <Route exact path="/chat" render={() => (
+                        <div>
+                            <ProfilePic modal={() => this.toggleModal()} imgUrlProfilePic={this.state.profile_pic_url}/>
+                            <Chat />
+                        </div>
+                    )}
+                    />
+
 
                 </div>
             </BrowserRouter>

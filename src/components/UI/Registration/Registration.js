@@ -31,15 +31,14 @@ class Registration extends Component {
 
     render() {
         return (
-            <div>
-                {this.state.error && ( <div className="error">Something went wrong. Please try again!</div> )}
+            <div className="registration-login-wrapper">
+                {this.state.error && ( <p className="error">Something went wrong. Please try again!</p> )}
                 Firstname: <input type="text" name="firstname" onChange={e => this.setValueToState(e)} placeholder="firstname..." autoComplete="off"></input>
                 Lastname: <input type="text" name="lastname" onChange={e => this.setValueToState(e)} placeholder="lastname..." autoComplete="off"></input>
                 Email: <input type="email" name="email" onChange={e => this.setValueToState(e)} placeholder="email address..." autoComplete="off"></input>
                 Password: <input type="password" name="password" onChange={e => this.setValueToState(e)} placeholder="password" autoComplete="off"></input>
                 <button type="button" onClick={() => this.submit()}>Register</button>
-                <p>Already a member?<Link to="/login">Click here to Log in!</Link></p>
-
+                <p>Already a member? <Link to="/login">Click here to Log in!</Link></p>
             </div>
         );
     }

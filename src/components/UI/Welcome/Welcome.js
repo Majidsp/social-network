@@ -6,14 +6,12 @@ import Login from '../Login/Login';
 
 
 const welcome = () => (
-    <div>
-        <h1>Here is the Welcome component! Welcome to our social network!</h1>
+    <div className="welcome wrapper">
+        <h1 className="welcome-title">Connect with friends and the world around you on Connect.</h1>
         <Logo />
         <HashRouter>
-            <div>
-                <Route exact path="/" component={Registration} />
-                <Route path="/login" component={Login} />
-            </div>
+            <Route exact path="/" component={Registration} />
+            <Route exact path="/login" component={Login} />
         </HashRouter>
     </div>
 );

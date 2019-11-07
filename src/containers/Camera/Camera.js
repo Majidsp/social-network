@@ -27,16 +27,16 @@ const camera = (props) => {
     );
 
     return (
-        <div>
+        <div className="camera">
+            <button onClick={capture}>Capture photo</button>
             <Webcam
                 audio={false}
-                height={720}
+                height={500}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                width={1280}
+                width={800}
                 videoConstraints={videoConstraints}
             />
-            <button onClick={capture}>Capture photo</button>
         </div>
     );
 };

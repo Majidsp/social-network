@@ -30,7 +30,7 @@ class BioEditor extends Component {
     render () {
         let bio = this.props.bio ? `${this.props.bio}. Edit` : 'Add your bio now';
         return (
-            <div style={{backgroundColor: 'brown'}}>
+            <div className="bio">
                 <p onClick={() => this.toggleTextArea()}>{bio}</p>
                 {this.state.showTextField && (
                     <div>

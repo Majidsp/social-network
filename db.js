@@ -84,11 +84,34 @@ const acceptFriendRequest = (receiver_id, sender_id) => {
 
 const friendsAndWannabes = (id) => {
     return db.query(
-        `SELECT users.id, first, last, image, accepted FROM friendships JOIN users
+        `SELECT users.id, firstname, lastname, profile_pic_url, accepted FROM friendships JOIN users
         ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
         OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
-        OR (accepted = true AND receiver_id = $1 AND sender_id = users.id);`,
+        OR (accepted = true AND sender_id = $1 AND receiver_id = users.id);`,
         [id]
+    );
+};
+
+const newMessage = (id, message) => {
+    return db.query(
+        `INSERT INTO messages (sender_id, message)
+        VALUES ($1, $2)
+        RETURNING id, sender_id, message, created_at;`,
+        [id, message]
+    );
+};
+
+const getMessageSenderInfo = id => {
+    return db.query(
+        `SELECT firstname, lastname, profile_pic_url FROM users WHERE id = $1;`,
+        [id]
+    );
+};
+
+const getMessages = () => {
+    return db.query(
+        `SELECT messages.id, sender_id, message, messages.created_at, firstname, lastname, profile_pic_url FROM messages LEFT JOIN users
+        ON (users.id = sender_id) ORDER BY created_at DESC LIMIT 10;`
     );
 };
 
@@ -104,5 +127,8 @@ module.exports = {
     createFriendshipRequest,
     cancelFriendshipRequest,
     acceptFriendRequest,
-    friendsAndWannabes
+    friendsAndWannabes,
+    newMessage,
+    getMessageSenderInfo,
+    getMessages
 };

@@ -1,32 +1,59 @@
-import axios from 'axios';
+import axios from './axios';
 
+export async function receiveFriendsWannabes() {
+    try {
+        const { data } = await axios.get('/api/friends-wannabes');
+        return {
+            type: 'RECEIVE_FRIENDS_WANNABES',
+            friendsWannabes: data
+        };
+    } catch (err) {
+        console.error(err);
+    }
+}
 
-const receiveUsers = async () => {
-    const { data } = await axios.get('/users');
-    return {
-        type: 'RECEIVE_USERS',
-        users: data.users
-    };
-};
+export async function acceptFriendRequest(userId) {
+    try {
+        await axios.post('/acceptRequest', {id: userId});
+        return {
+            type: 'ACCEPT_FRIENDSHIP',
+            id: userId
+        };
+    } catch (err) {
+        console.error(err);
+    }
+}
 
-const makeHot = async (id) => {
-    await axios.post(`/hot/${id}`);
-    return {
-        type: 'MAKE_HOT',
-        id
-    };
-};
+export async function unfriend(userId) {
+    try {
+        await axios.post('/cancelRequest', {id: userId});
+        return {
+            type: 'UNFRIEND',
+            id: userId
+        };
+    } catch (err) {
+        console.error(err);
+    }
+}
 
-const makeNot = async (id) => {
-    await axios.post(`/not/${id}`);
-    return {
-        type: 'MAKE_NOT',
-        id
-    };
-};
+export async function chatMessages(messages) {
+    try {
+        return {
+            type: 'CHAT_MESSAGES',
+            messages: messages
+        };
+    } catch (err) {
+        console.error(err);
+    }
+}
 
-module.exports = {
-    receiveUsers,
-    makeHot,
-    makeNot
-};
+export async function chatMessage(message) {
+    try {
+        return {
+            type: 'CHAT_MESSAGE',
+            message: message
+        };
+    } catch (err) {
+        console.error(err);
+    }
+}

@@ -42,7 +42,7 @@ class Uploader extends Component {
 
     render () {
         return (
-            <div style={{backgroundColor: 'green'}}>
+            <div className="uploader">
                 {/*    <h1 onClick={() => this.props.sthToTest('Arash')}>Uploader Here!</h1> */}
                 <h1>Uploader Here!</h1>
                 {this.state.error && ( <div className="error">Something went wrong. Please try again!</div> )}

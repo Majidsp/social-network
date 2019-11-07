@@ -11,6 +11,7 @@
 --     registered_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 -- );
 --
+--
 -- DROP TABLE IF EXISTS friendships CASCADE;
 --
 -- CREATE TABLE friendships (
@@ -18,5 +19,15 @@
 --     sender_id INT NOT NULL REFERENCES users(id),
 --     receiver_id INT NOT NULL REFERENCES users(id),
 --     accepted BOOLEAN DEFAULT false,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+
+-- DROP TABLE IF EXISTS messages;
+--
+-- CREATE TABLE messages (
+--     id SERIAL PRIMARY KEY,
+--     sender_id INT NOT NULL REFERENCES users(id),
+--     message VARCHAR(300),
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
