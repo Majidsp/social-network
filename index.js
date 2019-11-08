@@ -415,6 +415,11 @@ app.get('/api/friends-wannabes', (req, res) => {
     })();
 });
 
+app.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('/welcome');
+});
+
 
 // Star Route (must be the last route)
 app.get('*', function(req, res) {

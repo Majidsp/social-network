@@ -33,7 +33,7 @@ class Login extends Component {
                 {this.state.error && ( <p className="error">Something went wrong. Please try again!</p> )}
                 Email Address: <input type="email" name="email" onChange={e => this.setValueToState(e)} placeholder="email address..." autoComplete="off"></input>
                 Password: <input type="password" name="password" onChange={e => this.setValueToState(e)} placeholder="password" autoComplete="off"></input>
-                <button type="button" onClick={() => this.submit()}>Login</button>
+                <button className="example_c" type="button" onClick={() => this.submit()}>Login</button>
                 <p>Not a member yet? <Link to="/">Click here to Register!</Link></p>
             </div>
         );

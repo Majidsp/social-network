@@ -28,13 +28,13 @@ const camera = (props) => {
 
     return (
         <div className="camera">
-            <button onClick={capture}>Capture photo</button>
-            <Webcam
+            <button className="example_c" onClick={capture}>Capture photo</button>
+            <Webcam className="webcam"
                 audio={false}
-                height={500}
+                // height={500}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                width={800}
+                // width={800}
                 videoConstraints={videoConstraints}
             />
         </div>

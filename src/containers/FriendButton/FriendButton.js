@@ -54,7 +54,7 @@ const FriendButton = (props) => {
     return (
         <div>
             {error && <p>Something went wrong. Please try again!</p>}
-            <button onClick={friendshipManager}>{buttonText}</button>
+            <button className="example_c" onClick={friendshipManager}>{buttonText}</button>
         </div>
     );
 };

@@ -37,7 +37,7 @@ class Registration extends Component {
                 Lastname: <input type="text" name="lastname" onChange={e => this.setValueToState(e)} placeholder="lastname..." autoComplete="off"></input>
                 Email: <input type="email" name="email" onChange={e => this.setValueToState(e)} placeholder="email address..." autoComplete="off"></input>
                 Password: <input type="password" name="password" onChange={e => this.setValueToState(e)} placeholder="password" autoComplete="off"></input>
-                <button type="button" onClick={() => this.submit()}>Register</button>
+                <button className="example_c" type="button" onClick={() => this.submit()}>Register</button>
                 <p>Already a member? <Link to="/login">Click here to Log in!</Link></p>
             </div>
         );

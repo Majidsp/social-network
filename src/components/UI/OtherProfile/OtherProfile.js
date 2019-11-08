@@ -26,9 +26,9 @@ class OtherProfile extends Component {
 
     render() {
         return (
-            <div>
+            <div className="otherProfile">
                 <img src={this.state.profile_pic_url || '../../../assets/images/default_profile_pic.jpg'} />
-                <h1>Welcome {this.state.firstname} {this.state.lastname}</h1>
+                <h1>{this.state.firstname} {this.state.lastname}</h1>
                 <p>{this.state.bio}</p>
                 <FriendButton userId={this.props.match.params.id} />
             </div>

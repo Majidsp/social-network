@@ -30,7 +30,7 @@ const Chat = () => {
     }
 
     return(
-        <div>
+        <div className="chat">
             <h2>Chat with the world!</h2>
             {!!chatMessages.length &&
                 <div className="chat-container" ref={elemRef}>

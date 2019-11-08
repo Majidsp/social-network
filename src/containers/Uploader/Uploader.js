@@ -47,8 +47,8 @@ class Uploader extends Component {
                 <h1>Uploader Here!</h1>
                 {this.state.error && ( <div className="error">Something went wrong. Please try again!</div> )}
                 <input type="file" accept="image/*" onChange={(e) => this.fileSelected(e)} name="file" id="file" />
-                <button onClick={() => this.upload()}>Upload!</button>
-                <button onClick={() => this.showCamera()}>Take a picture!</button>
+                <button className="example_c" onClick={() => this.upload()}>Upload!</button>
+                <button className="example_c" onClick={() => this.showCamera()}>Take a picture!</button>
                 {this.state.camera && ( <Camera modal={() => this.showCamera()} setUrlCamera={this.props.setUrl} /> )}
 
             </div>

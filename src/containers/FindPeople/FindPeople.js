@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../../axios";
+import { Link } from 'react-router-dom';
+
 
 
 function FindPeople() {
@@ -37,7 +39,9 @@ function FindPeople() {
             {users.map(
                 user => (
                     <div className="findPeople-user" key={user.id}>
-                        <img src={user.profile_pic_url} alt="Image!"/>
+                        <Link to={'user/'+user.id}>
+                            <img src={user.profile_pic_url} alt="Image!"/>
+                        </Link>
                         <h5>{user.firstname} {user.lastname}</h5>
                     </div>
                 )
