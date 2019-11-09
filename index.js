@@ -417,7 +417,7 @@ app.get('/api/friends-wannabes', (req, res) => {
 
 app.get('/logout', (req, res) => {
     req.session = null;
-    res.redirect('/welcome');
+    res.redirect('/');
 });
 
 
