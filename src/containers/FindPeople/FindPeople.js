@@ -40,7 +40,7 @@ function FindPeople() {
                 user => (
                     <div className="findPeople-user" key={user.id}>
                         <Link to={'user/'+user.id}>
-                            <img src={user.profile_pic_url} alt="Image!"/>
+                            <img src={user.profile_pic_url = user.profile_pic_url || '../../assets/images/default_profile_pic.jpg'} alt="Image!"/>
                         </Link>
                         <h5>{user.firstname} {user.lastname}</h5>
                     </div>

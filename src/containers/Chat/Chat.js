@@ -37,7 +37,7 @@ const Chat = () => {
                     {chatMessages.map(item => (
                         <div className="message-wrapper" key={item.id} >
                             <div className="message-left">
-                                <img src={item.profile_pic_url} />
+                                <img src={item.profile_pic_url = item.profile_pic_url || '../../assets/images/default_profile_pic.jpg'} />
                                 <p className="sender">{item.firstname} {item.lastname}</p>
                             </div>
                             <div className="message-right">

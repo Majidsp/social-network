@@ -41,7 +41,7 @@ exports.upload = function(req, res, next) {
     );
 };
 
-exports.u = function(req, res, next) {
+exports.uploadFromWebcam = function(req, res, next) {
 
     s3.putObject({
         Bucket: 'spicedling',
