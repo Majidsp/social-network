@@ -328,6 +328,8 @@ server.listen(8080, function() { console.log("I'm listening."); });
 
 //Socket.IO
 io.on('connection', function(socket) {
+    console.log(`socket with the id ${socket.id} is now connected.`);
+
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
@@ -356,7 +358,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect', function() {
-        console.log(`socket with the id ${socket.id} is now disconnected`);
+        console.log(`socket with the id ${socket.id} is now disconnected.`);
     });
 
 });
