@@ -3,7 +3,7 @@
 Connect is a facebook inspired social media platform created with React/Redux and Hooks with practice purposes!
 
 # Features:
-# Phase one (completed):<br />
+Phase one (completed):<br />
 Registration and creating profile.<br />
 Log in.<br />
 Adding and editing bio.<br />
