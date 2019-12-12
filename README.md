@@ -7,7 +7,7 @@ Front-end:<br />
 React (Hooks), Redux, React router, React Webcam<br />
 
 Back-end:<br />
-Nodejs, Expressjs, Express Router<br />
+Nodejs, Expressjs, Express Router, Socket.io<br />
 
 Database:<br />
 Postgres SQL<br />
