@@ -1,10 +1,15 @@
-#Social Network
+# Connect social media
 
-Front-end:
-React, Redux
+Connect is a facebook inspired social media platform created with React/Redux and Hooks!
 
-Back-end:
-Node, Express, Express Router
+# Stack:
+Front-end:<br />
+React (Hooks), Redux, React router<br />
 
-Database:
-Postgres SQL
+Back-end:<br />
+Nodejs, Expressjs, Express Router<br />
+
+Database:<br />
+Postgres SQL<br />
+
+![Main page]() ![Main page]()
