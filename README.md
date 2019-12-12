@@ -15,3 +15,5 @@ Postgres SQL<br />
 ![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-1.jpg) 
 ![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-2.jpg)
 ![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-3.jpg)
+![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-4.jpg)
+![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-5.jpg)
