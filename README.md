@@ -4,7 +4,7 @@ Connect is a facebook inspired social media platform created with React/Redux an
 
 # Stack:
 Front-end:<br />
-React (Hooks), Redux, React router<br />
+React (Hooks), Redux, React router, React Webcam<br />
 
 Back-end:<br />
 Nodejs, Expressjs, Express Router<br />
