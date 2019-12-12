@@ -12,4 +12,6 @@ Nodejs, Expressjs, Express Router<br />
 Database:<br />
 Postgres SQL<br />
 
-![Main page]() ![Main page]()
+![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-1.jpg) 
+![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-2.jpg)
+![Main page](https://github.com/Majidsp/social-network/blob/majid/connect-preview-3.jpg)
