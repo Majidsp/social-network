@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import Logo from '../../Logo/Logo';
+import Logo from '../Logo/Logo';
 import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
 
