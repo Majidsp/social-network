@@ -6,7 +6,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import OtherProfile from './components/UI/OtherProfile/Otherprofile';
 import FindPeople from './containers/FindPeople/FindPeople';
 import Friends from './containers/Friends/Friends';
-import Chat from './containers/chat/chat';
+import Chat from './components/chat/chat';
 import ProfilePic from './components/UI/ProfilePic/ProfilePic';
 
 
