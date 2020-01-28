@@ -4,8 +4,8 @@ import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
 import { BrowserRouter, Route } from 'react-router-dom';
 import OtherProfile from './components/UI/OtherProfile/Otherprofile';
-import FindPeople from './containers/FindPeople/FindPeople';
-import Friends from './containers/Friends/Friends';
+import FindPeople from './components/FindPeople/FindPeople';
+import Friends from './components/Friends/Friends';
 import Chat from './components/chat/chat';
 import ProfilePic from './components/UI/ProfilePic/ProfilePic';
 
