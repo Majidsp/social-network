@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Welcome from './components/UI/Welcome/Welcome';
+import Welcome from './components/Welcome/Welcome';
 import App from './App';
 
 import { Provider } from 'react-redux';
