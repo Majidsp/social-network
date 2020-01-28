@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Uploader from './containers/Uploader/Uploader';
+import Uploader from './components/Uploader/Uploader';
 import Profile from './components/UI/Profile/Profile';
 import axios from "./axios";
 import { BrowserRouter, Route } from 'react-router-dom';
