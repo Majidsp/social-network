@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from '../../../axios';
+import axios from '../../axios';
 import FriendButton from '../FriendButton/FriendButton';
 // import ProfilePic from '../ProfilePic/ProfilePic';
 
