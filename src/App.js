@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Uploader from './components/Uploader/Uploader';
-import Profile from './components/Profile/Profile';
+import Profile from './pages/Profile/Profile';
 import axios from "./axios";
 import { BrowserRouter, Route } from 'react-router-dom';
-import OtherProfile from './components/OtherProfile/Otherprofile';
-import FindPeople from './components/FindPeople/FindPeople';
-import Friends from './components/Friends/Friends';
+import OtherProfile from './pages/OtherProfile/OtherProfile';
+import FindPeople from './pages/FindPeople/FindPeople';
+import Friends from './pages/Friends/Friends';
 import Chat from './components/chat/chat';
 import ProfilePic from './components/ProfilePic/ProfilePic';
 

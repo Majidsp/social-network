@@ -1,6 +1,6 @@
 import React from 'react';
-import ProfilePic from '../ProfilePic/ProfilePic';
-import BioEditor from '../BioEditor/BioEditor';
+import ProfilePic from '../../components/ProfilePic/ProfilePic';
+import BioEditor from '../../components/BioEditor/BioEditor';
 
 
 const profile = ({ firstname, lastname, imgUrl, profileModal, profileBio, passbio }) => {

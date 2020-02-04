@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import Registration from '../Registration/Registration';
-import Login from '../Login/Login';
+import Registration from '../../pages/Registration/Registration';
+import Login from '../../pages/Login/Login';
 
 
 const welcome = () => (
